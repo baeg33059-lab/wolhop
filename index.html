@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11150f">
+  <meta name="description" content="Wolhop은 Minecraft: Java Edition 커뮤니티 서버를 찾고 접속하는 과정을 간단하게 만드는 독립 프로젝트입니다. 현재 개발 중입니다.">
+  <title>Wolhop — 서버를 찾고, 바로 플레이</title>
+  <style>
+    :root{color-scheme:dark;--bg:#11150f;--panel:#171d17;--panel-2:#1d251d;--line:#303a30;--text:#f3f5ed;--muted:#a8b0a2;--lime:#c8f26b;--mint:#8fe0ad;--amber:#f2c46d;--max:1120px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(ellipse at 80% 0%,#243222 0,transparent 34rem),var(--bg);color:var(--text);font:16px/1.65 Inter,"Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.015em}
+    a{color:inherit}
+    .wrap{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+    header{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:850;font-size:20px;letter-spacing:-.04em}
+    .mark{position:relative;width:32px;height:32px;border:1px solid #d8ffa166;border-radius:10px;background:linear-gradient(145deg,#d9ff9a,#91be45);box-shadow:0 6px 22px #a6d55124}
+    .mark:before,.mark:after{content:"";position:absolute;background:#29351e;border-radius:2px}
+    .mark:before{width:7px;height:7px;left:7px;top:7px;box-shadow:10px 0 #29351e,0 10px #29351e,10px 10px #29351e}
+    .mark:after{width:3px;height:3px;right:5px;bottom:5px;background:#f4ffd9}
+    nav{display:flex;align-items:center;gap:27px;color:var(--muted);font-size:13px}
+    nav a{text-decoration:none}nav a:hover{color:var(--text)}
+    .hero{display:grid;grid-template-columns:1.07fr .93fr;gap:55px;align-items:center;padding:84px 0 75px}
+    .eyebrow{display:flex;align-items:center;gap:9px;color:var(--lime);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 13px #c8f26b88}
+    h1{font-size:clamp(40px,5.4vw,68px);line-height:1.12;letter-spacing:-.065em;margin:20px 0 19px;max-width:650px}
+    h1 span{color:var(--lime)}
+    .lead{font-size:18px;line-height:1.75;color:#d0d6ca;max-width:610px;margin:0}
+    .lead-en{font-size:14px;color:var(--muted);margin:14px 0 0;max-width:600px}
+    .actions{display:flex;gap:12px;align-items:center;margin-top:29px;flex-wrap:wrap}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:0 17px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:800}
+    .button.primary{background:var(--lime);color:#1a2114}
+    .button.ghost{border:1px solid var(--line);color:#dce2d5}
+    .prototype{color:var(--muted);font-size:12px;margin-top:16px}
+    .showcase{position:relative;min-height:375px;display:grid;place-items:center;isolation:isolate}
+    .glow{position:absolute;width:300px;height:300px;border-radius:50%;background:#a4d85c18;filter:blur(36px);z-index:-1}
+    .orbit{position:absolute;width:320px;height:320px;border:1px solid #d6f5b01b;border-radius:50%;transform:rotate(-23deg) scaleY(.54)}
+    .float-card{width:min(100%,390px);border:1px solid #66745566;background:linear-gradient(145deg,#222b20f2,#171c17f5);border-radius:18px;padding:18px;box-shadow:0 30px 80px #0008;transform:rotate(2deg)}
+    .card-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid #ffffff12}
+    .card-title{font-size:12px;font-weight:800}.tag{font-size:10px;color:var(--lime);border:1px solid #c8f26b44;background:#c8f26b0d;border-radius:20px;padding:4px 8px}
+    .server-card{display:flex;align-items:center;gap:13px;padding:16px 0 13px}
+    .server-icon{width:45px;height:45px;border-radius:12px;background:linear-gradient(145deg,#4c6740,#253525);border:1px solid #829a6155;display:grid;place-items:center;color:#d8f5a2;font-weight:900;font-size:15px}
+    .server-name{font-weight:800;font-size:14px}.server-meta{font-size:11px;color:var(--muted);margin-top:3px}
+    .online{margin-left:auto;color:var(--mint);font-size:11px;white-space:nowrap}
+    .mock-button{height:42px;border-radius:9px;background:#c8f26b;color:#1a2114;display:grid;place-items:center;font-size:12px;font-weight:900}
+    .card-note{font-size:10px;color:#929b8b;margin:12px 2px 0;line-height:1.5}
+    .float-label{position:absolute;right:0;bottom:28px;padding:11px 14px;border:1px solid #ffffff17;background:#171d17dd;border-radius:12px;color:#d9e1d3;font-size:11px;box-shadow:0 15px 35px #0005}
+    .float-label b{color:var(--amber);font-weight:800}
+    section{scroll-margin-top:30px}
+    .section{padding:61px 0;border-top:1px solid #ffffff12}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:25px}
+    .kicker{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);font-weight:850}
+    h2{font-size:clamp(26px,3.3vw,38px);line-height:1.22;letter-spacing:-.05em;margin:8px 0 0}
+    .section-intro{max-width:430px;color:var(--muted);font-size:13px;margin:0}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .tile{border:1px solid var(--line);background:linear-gradient(145deg,#1b211b,#151a15);border-radius:14px;padding:21px;min-height:164px}
+    .num{color:#8a987f;font-size:11px;font-weight:800;letter-spacing:.08em}
+    .tile h3{font-size:16px;margin:15px 0 7px;letter-spacing:-.03em}
+    .tile p{color:var(--muted);font-size:12px;line-height:1.7;margin:0}
+    .status-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .status-box{border:1px solid var(--line);border-radius:14px;padding:22px;background:#171d17}
+    .status-box h3{margin:0 0 12px;font-size:15px}
+    .status-box ul{margin:0;padding-left:18px;color:#b9c2b4;font-size:13px;line-height:1.9}
+    .status-box.ready{border-color:#526449;background:linear-gradient(145deg,#1d281b,#171d17)}
+    .status-box.building{border-color:#665a37;background:linear-gradient(145deg,#29251a,#171d17)}
+    .status-pill{display:inline-flex;border-radius:20px;padding:4px 8px;font-size:10px;font-weight:850;letter-spacing:.04em;margin-bottom:12px}
+    .ready .status-pill{color:var(--mint);background:#8fe0ad15}.building .status-pill{color:var(--amber);background:#f2c46d15}
+    .notice{border:1px solid #63563a;background:#201e17;border-radius:14px;padding:20px 22px;color:#ded4bb;font-size:13px;line-height:1.8}
+    .notice strong{display:block;color:#f4ce81;font-size:12px;letter-spacing:.08em;margin-bottom:7px}
+    .notice-en{display:block;color:#b9b19d;margin-top:9px;font-size:12px}
+    .trust{display:grid;grid-template-columns:.7fr 1.3fr;gap:35px;align-items:start}
+    .trust p{margin:0 0 12px;color:#bcc5b7;font-size:13px}
+    .trust .small{font-size:11px;color:#899283}
+    footer{padding:27px 0 34px;border-top:1px solid #ffffff12;color:#879081;font-size:11px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    footer a{color:#aeb8a8;text-decoration:none}
+    @media(max-width:760px){.wrap{width:min(100% - 30px,var(--max))}header{height:66px}nav{gap:13px;font-size:11px}.hero{grid-template-columns:1fr;gap:15px;padding:58px 0 46px}.showcase{min-height:330px}.section{padding:45px 0}.section-head{display:block}.section-intro{margin-top:14px}.grid-3{grid-template-columns:1fr}.tile{min-height:auto}.status-grid,.trust{grid-template-columns:1fr}.trust{gap:16px}.float-label{right:2px;bottom:4px}footer{align-items:flex-start;flex-direction:column}}
+    @media(max-width:420px){nav{gap:9px}nav a{font-size:10px}.lead{font-size:16px}.showcase{min-height:290px}.orbit{width:250px;height:250px}.float-card{padding:14px}}
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <a class="brand" href="#top" aria-label="Wolhop 홈"><span class="mark" aria-hidden="true"></span><span>Wolhop</span></a>
+    <nav aria-label="주요 메뉴">
+      <a href="#about">소개</a>
+      <a href="#status">개발 현황</a>
+      <a href="#independent">안내</a>
+    </nav>
+  </header>
+
+  <main id="top" class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Independent project · 개발 중</div>
+        <h1 id="hero-title">서버를 찾고,<br><span>바로 플레이.</span></h1>
+        <p class="lead">Wolhop은 Minecraft: Java Edition 커뮤니티 서버를 쉽게 발견하고, 선택한 서버에 간편하게 접속하는 경험을 만들고 있는 독립 프로젝트입니다.</p>
+        <p class="lead-en">Wolhop is an independent project in development, focused on helping players discover community servers for Minecraft: Java Edition and start playing with fewer steps.</p>
+        <div class="actions"><a class="button primary" href="#status">개발 현황 보기</a><a class="button ghost" href="#independent">독립 프로젝트 안내</a></div>
+        <p class="prototype">현재는 프로토타입 단계이며, 로그인과 실제 게임 접속 기능은 아직 제공되지 않습니다.</p>
+      </div>
+      <div class="showcase" aria-label="Wolhop 서버 탐색 화면 개념도">
+        <div class="glow"></div><div class="orbit"></div>
+        <div class="float-card">
+          <div class="card-top"><span class="card-title">서버 탐색 · SERVER DISCOVERY</span><span class="tag">JAVA EDITION</span></div>
+          <div class="server-card"><div class="server-icon" aria-hidden="true">W</div><div><div class="server-name">커뮤니티 서버 찾기</div><div class="server-meta">정보를 확인하고 원하는 서버 선택</div></div><span class="online">● 탐색</span></div>
+          <div class="mock-button">접속하기 · 기능 준비 중</div>
+          <p class="card-note">화면은 제품 방향을 보여주는 예시입니다. 표시된 서버와 접속 정보는 실제 서비스가 아닙니다.</p>
+        </div>
+        <div class="float-label"><b>현재 단계</b> · 프로토타입</div>
+      </div>
+    </section>
+
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="section-head">
+        <div><div class="kicker">About Wolhop</div><h2 id="about-title">서버를 찾는 경험부터<br>간단하게 만들어요.</h2></div>
+        <p class="section-intro">서버 주소를 따로 찾아 복사하는 부담을 줄이고, 서버 소개와 접속 흐름을 한곳에서 이어 주는 런처와 디렉터리를 목표로 합니다.</p>
+      </div>
+      <div class="grid-3">
+        <article class="tile"><div class="num">01 / DISCOVER</div><h3>커뮤니티 서버 발견</h3><p>게임 방식, 버전, 서버 설명과 같은 정보를 살펴보고 관심 있는 서버를 찾도록 돕습니다.</p></article>
+        <article class="tile"><div class="num">02 / CHOOSE</div><h3>원하는 서버 선택</h3><p>접속 전에 서버 정보를 확인하고, 사용자가 선택한 서버로 이동하는 흐름을 설계하고 있습니다.</p></article>
+        <article class="tile"><div class="num">03 / PLAY</div><h3>런처에서 게임 시작</h3><p>승인과 구현이 완료되면 사용자의 정식 게임 계정과 공식 Minecraft 클라이언트를 이용하는 접속 경험을 목표로 합니다.</p></article>
+      </div>
+    </section>
+
+    <section id="status" class="section" aria-labelledby="status-title">
+      <div class="section-head">
+        <div><div class="kicker">Development status</div><h2 id="status-title">현재 개발 단계</h2></div>
+        <p class="section-intro">기능 상태를 투명하게 안내합니다. 이 페이지나 런처 프로토타입은 실제 게임 계정에 로그인하거나 서버에 접속하지 않습니다.</p>
+      </div>
+      <div class="status-grid">
+        <article class="status-box ready"><span class="status-pill">프로토타입</span><h3>현재 준비된 것</h3><ul><li>Wolhop 런처 UI와 서버 탐색 화면 시안</li><li>웹 디렉터리에서 런처로 연결하는 접속 흐름 설계</li><li>제품 방향과 보안 요구사항 정리</li></ul></article>
+        <article class="status-box building"><span class="status-pill">개발 예정 · 미구현</span><h3>아직 제공되지 않는 것</h3><ul><li>Microsoft / Xbox / Minecraft 계정 로그인 및 소유권 확인</li><li>게임 파일 설치, Java 런타임 관리, 실제 게임 실행</li><li>실제 운영 서버 목록과 원클릭 서버 접속</li><li>Minecraft 서비스 AppID 승인 요청 제출</li></ul></article>
+      </div>
+    </section>
+
+    <section id="independent" class="section" aria-labelledby="independent-title">
+      <div class="section-head">
+        <div><div class="kicker">Independent service notice</div><h2 id="independent-title">독립 서비스 안내</h2></div>
+      </div>
+      <div class="trust">
+        <div class="notice"><strong>중요 고지 · IMPORTANT</strong>Wolhop은 Mojang 또는 Microsoft와 제휴·승인·후원 관계가 없는 독립 프로젝트입니다. Minecraft는 Mojang/Microsoft의 상표 및 제품입니다.<span class="notice-en">NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</span></div>
+        <div>
+          <p>Wolhop은 게임 파일을 배포하거나 인증·계정·라이선스 확인을 우회하지 않는 방향으로 개발하고 있습니다. 실제 로그인과 게임 실행은 아직 구현되지 않았으며, 정식 기능이 제공되기 전 필요한 권한과 사용 조건을 확인할 예정입니다.</p>
+          <p class="small">Wolhop is not affiliated with, endorsed by, or approved by Mojang or Microsoft. The current prototype does not request Microsoft credentials, access Minecraft accounts, download game files, or connect to live servers. Any future authentication and launch features remain subject to platform approval and applicable terms.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap"><span>© Wolhop · 독립 프로젝트 · 개발 중</span><a href="#top">맨 위로 ↑</a></footer>
+</body>
+</html>
