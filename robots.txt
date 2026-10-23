@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://baeg33059-lab.github.io/wolhop/app/sitemap.xml
